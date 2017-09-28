@@ -83,13 +83,15 @@
       </div>
 
       <!-- MODAL FOR LOGIN -->
-      <%= form_for :user, url: "/sessions", method: "post" do |f| %>
+      <!-- this |f| is for the form -->
+      <%= form_for :user, url: "/sessions", method: "post" do |form| %>
         <div id="sign-in-modal" class="modal">
           <div class="modal-content">
-            <%= render partial: "layouts/sign_in", locals: { f: f } %>
+            <!-- the second f is tied back to the f in the form -->
+            <%= render partial: "layouts/sign_in", locals: { sign_in: form } %>
           </div>
           <div class="modal-footer">
-        <%= f.submit "LOG IN", class: "modal-action modal-close waves-effect waves-green btn-flat", id: "sign-in-button" %>
+        <%= form.submit "LOG IN", class: "modal-action modal-close waves-effect waves-green btn-flat", id: "sign-in-button" %>
       <% end %>
         </div>
       </div>
@@ -109,13 +111,13 @@
           <% end %>
         </div>
 
-<ul id="dropdown1" class="dropdown-content" style="margin-top: 64px">
-  <li><%=link_to "Barcelona", location_path("barcelona-spain") %></li>
-  <li><%=link_to "London", location_path("london-uk") %></li>
-  <li><%=link_to "Paris", location_path("paris-france") %></li>
-  <li><%=link_to "St. Petersburg", location_path("st-petersburg-russia") %></li>
-</ul>
 
+
+<ul id="dropdown1" class="dropdown-content" style="margin-top: 64px">
+<% @locations.each do |location| %>
+  <li><%= link_to "#{location.city}", location_path(location.slug) %></li>
+<% end %>
+</ul>
 
 
       <!-- </div> -->

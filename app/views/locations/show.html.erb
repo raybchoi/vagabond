@@ -44,9 +44,7 @@
 
       <!-- pagination -->
       <%= paginate @locationposts %>
-      <div class="pagination_page_info">
-        <%= page_entries_info @locationposts %>
-      </div>
+    <%= render partial: "layouts/pagination" %>
 
 
     </div>

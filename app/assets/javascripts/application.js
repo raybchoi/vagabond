@@ -11,12 +11,14 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require turbolinks
 //= require jquery
 //= require_tree .
 //= require materialize-sprockets
 //= require materialize/extras/nouislider
 
-$(document).ready(function() {
+// document.addEventListener('turbolinks:load', function() {
+$(document).on('turbolinks:load', function() {
     $('select').material_select();
     $('.modal').modal();
     $('.tooltipped').tooltip({delay: 50});

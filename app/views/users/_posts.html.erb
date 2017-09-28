@@ -1,0 +1,34 @@
+
+<!-- BEGIN POST DATA -->
+    <% @posts.each do |post| %>
+      <div class="row">
+        <!-- BEGIN IMAGE FOR POST -->
+        <br>
+        <div class="col s12 m3">
+          <% if post.image.empty?  %>
+            <%= image_tag(asset_path('no_image.png'), class: "post-image z-depth-4") %>
+          <% else %>
+            <%= image_tag(post.image, class: "post-image z-depth-4") %>
+          <% end %>
+          <br>
+          <% if session[:user_id].nil? || session[:user_id] != @user.id %>
+          <% else %>
+            <%= link_to "Edit Post", edit_post_path(post.id), class: "btn btn-post" %>
+            <%= button_to 'Delete', {:controller => "posts", :action => 'show', :id => post.id}, data: {:confirm => "Are you sure you want to delete the #{post.title} post?"}, :method => :delete, class: 'btn btn-width' %>
+          <% end %>
+          </div>
+          <!-- END IMAGE FOR POST -->
+          <!-- BEGIN POST CONTENT -->
+          <div class="col s12 m9">
+            <b>Title: </b><span class="post-title-color"><%= post.title %></span><br>
+            <b>Address: </b><%= post.location.address %> <br>
+            <b>City: </b><%= link_to "#{post.location.city}", location_path(post.location.slug) %> <br>
+            <b>Post Date: </b><%= post.created_at.strftime("%B").to_s + " " + post.created_at.day.to_s + ", " + post.created_at.year.to_s %> <br>
+            <b>Experience: </b><%= post.description.slice(0, 210)+"..." %>
+            <%= link_to "Read More", post_path(post.id) %><br>
+          </div>
+          <!-- END POST CONTENT -->
+        </div>
+      <hr>
+    <% end %>
+<!-- END POST DATA -->
